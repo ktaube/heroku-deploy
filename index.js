@@ -219,18 +219,7 @@ if (heroku.dockerBuildArgs) {
 
     addRemote(heroku);
     addConfig(heroku);
-
-    try {
-      deploy({ ...heroku, dontuseforce: true });
-    } catch (err) {
-      console.error(`
-            Unable to push branch because the branch is behind the deployed branch. Using --force to deploy branch. 
-            (If you want to avoid this, set dontuseforce to 1 in with: of .github/workflows/action.yml. 
-            Specifically, the error was: ${err}
-        `);
-
-      deploy(heroku);
-    }
+    deploy(heroku);
 
     if (heroku.healthcheck) {
       if (typeof heroku.delay === "number" && heroku.delay !== NaN) {
